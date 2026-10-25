@@ -1,0 +1,38 @@
+Swap Studio Windows 1.0.0 - bundled third-party components
+
+The application adapter/UI is in app/. Third-party components retain their own licenses.
+Their names do not imply sponsorship or endorsement.
+
+ComfyUI: https://github.com/Comfy-Org/ComfyUI
+License: GNU GPL v3. Complete bundled engine source is in runtime/ComfyUI.
+See ComfyUI-LICENSE.txt and runtime/ComfyUI/LICENSE.
+The engine source is copied without modifications; our launcher is in launcher/.
+
+ComfyUI-GGUF: https://github.com/city96/ComfyUI-GGUF
+License: Apache 2.0. Source and original license are in runtime/ComfyUI/custom_nodes/ComfyUI-GGUF.
+
+Node.js 24.16.0: https://nodejs.org/ and https://github.com/nodejs/node/tree/v24.16.0
+See Node-LICENSE.txt, including the license notices of its bundled dependencies.
+
+CPython 3.13.14: https://www.python.org/
+Original license: runtime/python_embeded/LICENSE.txt.
+Python libraries, including PyTorch, NumPy, SciPy, Pillow, transformers and gguf,
+retain their distribution metadata and licenses in runtime/python_embeded/Lib/site-packages.
+PyTorch CUDA components are included as shipped by the installed PyTorch distribution.
+
+FLUX.2 klein 4B Q4_K_M GGUF:
+https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF
+Original model: https://huggingface.co/black-forest-labs/FLUX.2-klein-4B
+Apache 2.0, see FLUX-klein-LICENSE.txt. No model-weight modifications were made here.
+
+Qwen3 4B Q4_K_M GGUF:
+https://huggingface.co/unsloth/Qwen3-4B-GGUF
+Original model: https://huggingface.co/Qwen/Qwen3-4B
+Apache 2.0, see Qwen3-LICENSE.txt. No model-weight modifications were made here.
+
+FLUX2 VAE repackaged by Comfy-Org:
+https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-4b
+Apache 2.0 as declared by the model card; see VAE-model-card.txt and FLUX-klein-LICENSE.txt.
+Model file paths, upstream repositories and original SHA-256 checksums: models/manifest.json.
+
+No personal example images, account files, credentials, or prior generation jobs are included in the release ZIP.

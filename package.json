@@ -1,0 +1,1 @@
+{"name":"swap-studio","version":"1.0.0","productName":"换物1.0","private":true,"type":"module","engines":{"node":">=22.18.0"},"scripts":{"start":"node start.mjs","test":"node --test tests/*.test.mjs"}}

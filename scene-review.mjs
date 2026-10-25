@@ -1,0 +1,7 @@
+export function validateSceneReview(value){
+  const pick=(key,values)=>values.includes(value?.[key])?value[key]:'unknown';
+  const review={completed:value?.completed===true,mirror:pick('mirror',['present','absent']),linkedViews:pick('linkedViews',['single','multiple']),lighting:pick('lighting',['warm','neutral','cool']),productContrast:pick('productContrast',['matched','tooStrong','tooWeak']),summary:typeof value?.summary==='string'?value.summary.slice(0,600):''};
+  review.blocked=!review.completed||review.linkedViews!=='single'||review.mirror==='unknown';
+  return review;
+}
+export const SCENE_REVIEW_PROMPT=`Before tracing ANY local object, scan the ENTIRE scene and the ENTIRE product reference. Return sceneReview: {completed:true,mirror:"present|absent|unknown",linkedViews:"single|multiple|unknown",lighting:"warm|neutral|cool|unknown",productContrast:"matched|tooStrong|tooWeak|unknown",summary:"Chinese whole-scene observations"}. linkedViews=multiple if the SAME worn accessory is visible both on a foreground person and in a mirror or phone screen. Do not confuse unrelated merchandise with linked views. Never silently ignore a reflection: explain each linked location and how its perspective/occlusion differs. Check obsolete layers, attachment scale, overlapping fabric, whole-image lighting and saturation before proposing placement. This compositor handles one placement only; multiple linked views require review, not a claim of successful synchronized replacement.`;

@@ -1,0 +1,31 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {readRefinement} from '../refinement.mjs';
+
+test('only verified completed local revisions are selected; invalid or missing pointers fall back',t=>{
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'swap-refinement-'));
+  t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+  const id='test-job',revision='1234abcd5678',folder=path.join(dir,'refinements',revision);
+  fs.mkdirSync(folder,{recursive:true});
+  assert.equal(readRefinement(dir,id),null);
+  const write=(file,value)=>fs.writeFileSync(path.join(dir,file),JSON.stringify(value));
+  write('refinement.json',{revision:'../../secrets'});
+  assert.equal(readRefinement(dir,id),null);
+  write('refinement.json',{revision});
+  write(`refinements/${revision}/manifest.json`,{schemaVersion:1,jobId:id,revision,generatedAgain:false});
+  const record={maxChangeOutsideMask:0,maxChangeOutsideRefinement:0,productChangeFromPrevious:0,foregroundChangeFromPrevious:0};
+  write(`refinements/${revision}/verification.json`,record);
+  assert.equal(readRefinement(dir,id),null);
+  fs.writeFileSync(path.join(folder,'result.png'),'fixture');
+  assert.equal(readRefinement(dir,id).revision,revision);
+  write('refinement.json',{revision:'000011112222'});
+  assert.equal(readRefinement(dir,id),null);
+  assert.equal(readRefinement(dir,id,revision).revision,revision);
+  write('refinement.json',{revision});
+  assert.equal(readRefinement(dir,'different-job'),null);
+  write(`refinements/${revision}/verification.json`,{...record,productChangeFromPrevious:1});
+  assert.equal(readRefinement(dir,id),null);
+});

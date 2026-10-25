@@ -1,0 +1,9 @@
+{
+  "port": 8770,
+  "enginePort": 8188,
+  "device": "auto",
+  "cpuThreads": 4,
+  "portableRoot": "",
+  "dataDirectory": "",
+  "allowedAddresses": []
+}
